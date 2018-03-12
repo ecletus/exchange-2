@@ -91,9 +91,9 @@ func (res *Resource) Import(container Container, context *qor.Context, callbacks
 		var current uint
 		var total = rows.Total()
 
-		if db := context.GetDB(); db != nil && !res.Config.DisableTransaction {
+		if db := context.DB; db != nil && !res.Config.DisableTransaction {
 			tx := db.Begin()
-			context.SetDB(tx)
+			context.DB = tx
 			defer func() {
 				if hasError {
 					tx.Rollback()
@@ -147,7 +147,7 @@ func (res *Resource) Import(container Container, context *qor.Context, callbacks
 					}
 				}
 
-				result := res.NewStruct()
+				result := res.NewStruct(context.Site)
 				progress.Value = result
 
 				if err = res.FindOneHandler(result, metaValues, context); err == nil || err == gorm.ErrRecordNotFound {
@@ -179,7 +179,7 @@ func (res *Resource) Export(container Container, context *qor.Context, callbacks
 	results := res.NewSlice()
 
 	var total uint
-	if err := context.GetDB().Find(results).Count(&total).Error; err == nil {
+	if err := context.DB.Find(results).Count(&total).Error; err == nil {
 		reflectValue := reflect.Indirect(reflect.ValueOf(results))
 
 		if writer, err := container.NewWriter(res, context); err == nil {
