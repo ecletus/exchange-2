@@ -4,11 +4,11 @@ import (
 	"fmt"
 	"reflect"
 
-	"github.com/jinzhu/gorm"
-	"github.com/qor/qor"
-	"github.com/qor/qor/resource"
-	"github.com/qor/roles"
-	"github.com/qor/validations"
+	"github.com/moisespsena-go/aorm"
+	"github.com/aghape/aghape"
+	"github.com/aghape/aghape/resource"
+	"github.com/aghape/roles"
+	"github.com/aghape/validations"
 )
 
 // Resource defined an exchange resource, which includes importing/exporting fields definitions
@@ -31,7 +31,7 @@ type Config struct {
 
 // NewResource new exchange Resource
 func NewResource(value interface{}, config ...Config) *Resource {
-	res := Resource{Resource: resource.New(value)}
+	res := Resource{Resource: resource.New(value, "", "")}
 	if len(config) > 0 {
 		res.Config = &config[0]
 	} else {
@@ -45,6 +45,10 @@ func NewResource(value interface{}, config ...Config) *Resource {
 		}
 	}
 	return &res
+}
+
+func (res *Resource) MetaByName(name string) *Meta {
+	return res.Meta(NewMeta(name))
 }
 
 // Meta define exporting/importing meta for exchange Resource
@@ -126,7 +130,7 @@ func (res *Resource) Import(container Container, context *qor.Context, callbacks
 						for _, err := range errors.GetErrors() {
 							handleError(err)
 						}
-					} else if err, ok := err.(*validations.Error); ok {
+					} else if err, ok := err.(*validations.ValidationFailed); ok {
 						for idx, cell := range progress.Cells {
 							if cell.Header == err.Column {
 								cell.Error = err
@@ -150,9 +154,9 @@ func (res *Resource) Import(container Container, context *qor.Context, callbacks
 				result := res.NewStruct(context.Site)
 				progress.Value = result
 
-				if err = res.FindOneHandler(result, metaValues, context); err == nil || err == gorm.ErrRecordNotFound {
+				if err = res.FindOne(result, metaValues, context); err == nil || err == aorm.ErrRecordNotFound {
 					if err = resource.DecodeToResource(res, result, metaValues, context).Start(); err == nil {
-						if err = res.CallSave(result, context); err != nil {
+						if err = res.Save(result, context); err != nil {
 							handleError(err)
 						}
 					} else {

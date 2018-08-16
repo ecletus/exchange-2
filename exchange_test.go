@@ -8,15 +8,15 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/jinzhu/gorm"
-	"github.com/qor/exchange"
-	csv_adaptor "github.com/qor/exchange/backends/csv"
-	"github.com/qor/qor"
-	"github.com/qor/qor/resource"
-	"github.com/qor/qor/test/utils"
+	"github.com/moisespsena-go/aorm"
+	"github.com/aghape/exchange"
+	csv_adaptor "github.com/aghape/exchange/backends/csv"
+	"github.com/aghape/aghape"
+	"github.com/aghape/aghape/resource"
+	"github.com/aghape/aghape/test/utils"
 )
 
-var db *gorm.DB
+var db *aorm.DB
 var product *exchange.Resource
 
 func init() {

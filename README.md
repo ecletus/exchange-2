@@ -6,7 +6,7 @@ Data can optionally be validated during import and export.
 
 Data can optionally be processed during import.
 
-[![GoDoc](https://godoc.org/github.com/qor/exchange?status.svg)](https://godoc.org/github.com/qor/exchange)
+[![GoDoc](https://godoc.org/github.com/aghape/exchange?status.svg)](https://godoc.org/github.com/aghape/exchange)
 
 ## Documentation
 

@@ -3,25 +3,34 @@ package exchange
 import (
 	"reflect"
 
-	"github.com/qor/qor"
-	"github.com/qor/qor/resource"
-	"github.com/qor/roles"
+	"github.com/aghape/aghape"
+	"github.com/aghape/aghape/resource"
+	"github.com/aghape/roles"
 )
 
 // Meta defines importable/exportable fields
 type Meta struct {
-	base *Resource
+	base       *Resource
 	resource.Meta
-	Name       string
 	Header     string
 	Valuer     func(interface{}, *qor.Context) interface{}
-	Setter     func(resource interface{}, metaValue *resource.MetaValue, context *qor.Context)
+	Setter     func(resource interface{}, metaValue *resource.MetaValue, context *qor.Context) error
 	Permission *roles.Permission
+}
+
+func NewMeta(name string) *Meta {
+	m := &Meta{}
+	m.MetaName = &resource.MetaName{Name:name}
+	return m
 }
 
 // GetMetas get defined sub metas
 func (meta *Meta) GetMetas() []resource.Metaor {
 	return []resource.Metaor{}
+}
+
+func (meta *Meta) GetContextMetas(recorde interface{}, context *qor.Context) []resource.Metaor {
+	return meta.GetMetas()
 }
 
 // GetResource get its resource
@@ -30,8 +39,12 @@ func (meta *Meta) GetResource() resource.Resourcer {
 }
 
 func (meta *Meta) updateMeta() {
+	if meta.MetaName == nil {
+		meta.MetaName = &resource.MetaName{}
+	}
 	meta.Meta = resource.Meta{
-		Name:         meta.Name,
+		MetaName:     meta.MetaName,
+		Alias:        meta.Alias,
 		FieldName:    meta.FieldName,
 		Setter:       meta.Setter,
 		Valuer:       meta.Valuer,

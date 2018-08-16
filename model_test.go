@@ -1,9 +1,9 @@
 package exchange_test
 
-import "github.com/jinzhu/gorm"
+import "github.com/moisespsena-go/aorm"
 
 type Product struct {
-	gorm.Model
+	aorm.Model
 	Code       string
 	Name       string
 	Price      float64
@@ -13,6 +13,6 @@ type Product struct {
 }
 
 type Category struct {
-	gorm.Model
+	aorm.Model
 	Name string
 }

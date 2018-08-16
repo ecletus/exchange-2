@@ -6,9 +6,9 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/qor/exchange"
-	"github.com/qor/qor"
-	"github.com/qor/qor/resource"
+	"github.com/aghape/exchange"
+	"github.com/aghape/aghape"
+	"github.com/aghape/aghape/resource"
 )
 
 func (c *CSV) NewReader(res *exchange.Resource, context *qor.Context) (exchange.Rows, error) {
