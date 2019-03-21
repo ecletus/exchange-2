@@ -5,10 +5,10 @@ import (
 	"reflect"
 
 	"github.com/moisespsena-go/aorm"
-	"github.com/aghape/aghape"
-	"github.com/aghape/aghape/resource"
-	"github.com/aghape/roles"
-	"github.com/aghape/validations"
+	"github.com/ecletus/ecletus"
+	"github.com/ecletus/ecletus/resource"
+	"github.com/ecletus/roles"
+	"github.com/ecletus/validations"
 )
 
 // Resource defined an exchange resource, which includes importing/exporting fields definitions

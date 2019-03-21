@@ -9,11 +9,11 @@ import (
 	"testing"
 
 	"github.com/moisespsena-go/aorm"
-	"github.com/aghape/exchange"
-	csv_adaptor "github.com/aghape/exchange/backends/csv"
-	"github.com/aghape/aghape"
-	"github.com/aghape/aghape/resource"
-	"github.com/aghape/aghape/test/utils"
+	"github.com/ecletus/exchange"
+	csv_adaptor "github.com/ecletus/exchange/backends/csv"
+	"github.com/ecletus/ecletus"
+	"github.com/ecletus/ecletus/resource"
+	"github.com/ecletus/ecletus/test/utils"
 )
 
 var db *aorm.DB

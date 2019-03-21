@@ -6,10 +6,10 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/aghape/exchange"
-	"github.com/aghape/aghape"
-	"github.com/aghape/aghape/resource"
-	"github.com/aghape/roles"
+	"github.com/ecletus/exchange"
+	"github.com/ecletus/ecletus"
+	"github.com/ecletus/ecletus/resource"
+	"github.com/ecletus/roles"
 )
 
 func (c *CSV) NewWriter(res *exchange.Resource, context *qor.Context) (exchange.Writer, error) {

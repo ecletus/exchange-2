@@ -1,6 +1,6 @@
 package exchange
 
-import "github.com/aghape/aghape"
+import "github.com/ecletus/ecletus"
 
 // Progress defined importing/exporting progress
 type Progress struct {
